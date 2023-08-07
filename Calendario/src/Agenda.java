@@ -21,6 +21,12 @@ public class Agenda {
         System.out.printf("|--------------------------------------> ");
         opc = sc.nextInt();
 
+        while(opc != 1 && opc != 2 && opc != 3 && opc != 4) {
+            System.out.println("|- Opção inválida! Digite outro número. -|");
+            System.out.printf("|--------------------------------------> ");
+            opc = sc.nextInt();
+        }
+
         switch(opc){
             case 1:
                 visuEventos();
