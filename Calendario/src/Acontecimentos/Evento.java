@@ -2,9 +2,10 @@ package Acontecimentos;
 
 public class Evento {
     private int dia, mes, ano, diaFim, mesFim, anoFim, horaInicio, horaFim, minutoInicio, minutoFim;
-    private String dataInicio, dataFim, horarioInicio, horarioFim, descricao;
+    private String nome, dataInicio, dataFim, horarioInicio, horarioFim, descricao;
 
-    public Evento(int dia, int mes, int ano, int diaFim, int mesFim, int anoFim, int horaInicio, int minutoInicio, int horaFim, int minutoFim, String descricao) {
+    public Evento(String nome, int dia, int mes, int ano, int diaFim, int mesFim, int anoFim, int horaInicio, int minutoInicio, int horaFim, int minutoFim) {
+        this.nome = nome;
         this.dia = dia;
         this.diaFim = diaFim;
         this.mes = mes;

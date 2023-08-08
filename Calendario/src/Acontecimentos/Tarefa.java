@@ -2,9 +2,10 @@ package Acontecimentos;
 
 public class Tarefa {
     private int dia, mes, ano;
-    private String descricao, data;
+    private String nome, descricao, data;
 
-    public Tarefa(int dia, int mes, int ano, String descricao) {
+    public Tarefa(String nome, int dia, int mes, int ano) {
+        this.nome = nome;
         this.dia = dia;
         this.mes = mes;
         this.ano = ano;

@@ -2,9 +2,10 @@ package Acontecimentos;
 
 public class Lembrete {
     private int dia, mes, ano, hora, minutos;
-    private String data, horario, descricao;
+    private String nome, data, horario, descricao;
 
-    public Lembrete(int dia, int mes, int ano, int hora, int minutos, String descricao) {
+    public Lembrete(String nome, int dia, int mes, int ano, int hora, int minutos) {
+        this.nome = nome;
         this.dia = dia;
         this.mes = mes;
         this.ano = ano;
