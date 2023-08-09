@@ -1,19 +1,30 @@
 package Acontecimentos;
 
 public class Lembrete {
-    private int dia, mes, ano, hora, minutos;
-    private String nome, data, horario, descricao;
+    private int idL, idBase, dia, mes, ano, hora, minutos;
+    private String nome, data, horario;
 
     public Lembrete(String nome, int dia, int mes, int ano, int hora, int minutos) {
+        this.idL = idBase;
         this.nome = nome;
         this.dia = dia;
         this.mes = mes;
         this.ano = ano;
         this.hora = hora;
         this.minutos = minutos;
-        this.descricao = descricao;
-        this.data = dia + "/" + mes + "/" + ano;
+        if (dia > 0 && dia < 10) {
+            this.data = "0" + dia + "/" + mes + "/" + ano;
+        } else if (mes > 0 && mes < 12) {
+            this.data = dia + "/" + "0" + mes + "/" + ano;
+        } else if (dia > 0 && dia < 10 && mes > 0 && mes < 12) {
+            this.data = "0" + dia + "/" + "0" + mes + "/" + ano;
+        }
         this.horario = hora + "h" + minutos;
+        idBase++;
+    }
+
+    public String getNome() {
+        return nome;
     }
 
     public String getData() {
@@ -22,10 +33,6 @@ public class Lembrete {
 
     public String getHorario() {
         return horario;
-    }
-
-    public String getDescricao() {
-        return descricao;
     }
 
     public int getDia() {

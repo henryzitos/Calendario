@@ -1,24 +1,31 @@
 package Acontecimentos;
 
 public class Tarefa {
-    private int dia, mes, ano;
-    private String nome, descricao, data;
+    private int idT, idBase, dia, mes, ano;
+    private String nome, data;
 
     public Tarefa(String nome, int dia, int mes, int ano) {
+        this.idT = idBase;
         this.nome = nome;
         this.dia = dia;
         this.mes = mes;
         this.ano = ano;
-        this.descricao = descricao;
-        this.data = dia + "/" + mes + "/" + ano;
+        if (dia > 0 && dia < 10) {
+            this.data = "0" + dia + "/" + mes + "/" + ano;
+        } else if (mes > 0 && mes < 12) {
+            this.data = dia + "/" + "0" + mes + "/" + ano;
+        } else if (dia > 0 && dia < 10 && mes > 0 && mes < 12) {
+            this.data = "0" + dia + "/" + "0" + mes + "/" + ano;
+        }
+        idBase++;
+    }
+
+    public String getNome() {
+        return nome;
     }
 
     public String getData() {
         return data;
-    }
-
-    public String getDescricao() {
-        return descricao;
     }
 
     public int getDia() {

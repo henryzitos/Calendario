@@ -1,10 +1,11 @@
 package Acontecimentos;
 
 public class Evento {
-    private int dia, mes, ano, diaFim, mesFim, anoFim, horaInicio, horaFim, minutoInicio, minutoFim;
-    private String nome, dataInicio, dataFim, horarioInicio, horarioFim, descricao;
+    private int idE, idBase, dia, mes, ano, diaFim, mesFim, anoFim, horaInicio, horaFim, minutoInicio, minutoFim;
+    private String nome, dataInicio, dataFim, horarioInicio, horarioFim;
 
     public Evento(String nome, int dia, int mes, int ano, int diaFim, int mesFim, int anoFim, int horaInicio, int minutoInicio, int horaFim, int minutoFim) {
+        this.idE = idBase;
         this.nome = nome;
         this.dia = dia;
         this.diaFim = diaFim;
@@ -16,11 +17,28 @@ public class Evento {
         this.horaFim = horaFim;
         this.minutoInicio = minutoInicio;
         this.minutoFim = minutoFim;
-        this.descricao = descricao;
-        this.dataInicio = dia + "/" + mes + "/" + ano;
+
+        if (dia > 0 && dia < 10) {
+            this.dataInicio = "0" + dia + "/" + mes + "/" + ano;
+        } else if (mes > 0 && mes < 12) {
+            this.dataInicio = dia + "/" + "0" + mes + "/" + ano;
+        } else if (dia > 0 && dia < 10 && mes > 0 && mes < 12) {
+            this.dataInicio = "0" + dia + "/" + "0" + mes + "/" + ano;
+        }
         this.horarioInicio = horaInicio + "h" + minutoInicio;
-        this.dataFim = diaFim + "/" + mes + "/" + ano;
+        if (diaFim > 0 && diaFim < 10) {
+            this.dataFim = "0" + diaFim + "/" + mesFim + "/" + anoFim;
+        } else if (mes > 0 && mes < 12) {
+            this.dataFim = diaFim + "/" + "0" + mesFim + "/" + anoFim;
+        } else if (dia > 0 && dia < 10 && mes > 0 && mes < 12) {
+            this.dataFim = "0" + diaFim + "/" + "0" + mesFim + "/" + anoFim;
+        }
         this.horarioFim = horaFim + "h" + minutoFim;
+        idBase++;
+    }
+
+    public String getNome() {
+        return nome;
     }
 
     public String getDataInicio() {
@@ -33,10 +51,6 @@ public class Evento {
 
     public String getDataFim() {
         return dataFim;
-    }
-
-    public String getDescricao() {
-        return descricao;
     }
 
     public String getHorarioFim() {
