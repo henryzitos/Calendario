@@ -17,22 +17,37 @@ public class Evento {
         this.horaFim = horaFim;
         this.minutoInicio = minutoInicio;
         this.minutoFim = minutoFim;
-
         if (dia > 0 && dia < 10) {
-            this.dataInicio = "0" + dia + "/" + mes + "/" + ano;
-        } else if (mes > 0 && mes < 12) {
-            this.dataInicio = dia + "/" + "0" + mes + "/" + ano;
-        } else if (dia > 0 && dia < 10 && mes > 0 && mes < 12) {
-            this.dataInicio = "0" + dia + "/" + "0" + mes + "/" + ano;
+            if (mes > 0 && mes < 10) {
+                this.dataInicio = "0" + dia + "/" + "0" + mes + "/" + ano;
+            }
+            else {
+                this.dataInicio = "0" + dia + "/" + mes + "/" + ano;
+            }
+        } else {
+            if (mes > 0 && mes < 10) {
+                this.dataInicio = dia + "/" + "0" + mes + "/" + ano;
+            }
+            else {
+                this.dataInicio = dia + "/" + mes + "/" + ano;
+            }
+        }
+        if (dia > 0 && dia < 10) {
+            if (mes > 0 && mes < 10) {
+                this.dataFim = "0" + dia + "/" + "0" + mes + "/" + ano;
+            }
+            else {
+                this.dataFim = "0" + dia + "/" + mes + "/" + ano;
+            }
+        } else {
+            if (mes > 0 && mes < 10) {
+                this.dataFim = dia + "/" + "0" + mes + "/" + ano;
+            }
+            else {
+                this.dataFim = dia + "/" + mes + "/" + ano;
+            }
         }
         this.horarioInicio = horaInicio + "h" + minutoInicio;
-        if (diaFim > 0 && diaFim < 10) {
-            this.dataFim = "0" + diaFim + "/" + mesFim + "/" + anoFim;
-        } else if (mes > 0 && mes < 12) {
-            this.dataFim = diaFim + "/" + "0" + mesFim + "/" + anoFim;
-        } else if (dia > 0 && dia < 10 && mes > 0 && mes < 12) {
-            this.dataFim = "0" + diaFim + "/" + "0" + mesFim + "/" + anoFim;
-        }
         this.horarioFim = horaFim + "h" + minutoFim;
         idBase++;
     }

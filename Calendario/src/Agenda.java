@@ -73,12 +73,12 @@ public class Agenda extends Funcoes {
                 auxt = sc.nextLine().trim();
                 System.out.println("| * Eventos");
                 for(Evento evento: listaEventos){
-                    if (auxt == evento.getDataInicio()) {
+                    if (auxt.equals(evento.getDataInicio())) {
                         System.out.println("| + " + evento.getNome());
                         System.out.println("| Começa às: " + evento.getHorarioInicio());
                         System.out.println("| Termina no dia: " + evento.getDataFim() + " às: " + evento.getHorarioFim());
                         System.out.println("|");
-                    } else if (auxt == evento.getDataFim()) {
+                    } else if (auxt.equals(evento.getDataFim())) {
                         System.out.println("| + " + evento.getNome());
                         System.out.println("| Começa no dia: " + evento.getDataInicio() + " às: " + evento.getHorarioInicio());
                         System.out.println("| Termina às" + evento.getHorarioFim());
@@ -88,7 +88,7 @@ public class Agenda extends Funcoes {
 
                 System.out.println("| * Lembretes");
                 for (Lembrete lembrete: listaLembretes) {
-                    if(auxt == lembrete.getData()){
+                    if(auxt.equals(lembrete.getData())){
                         System.out.println("| + " + lembrete.getNome());
                         System.out.println("| Está marcado para: " + lembrete.getHorario());
                         System.out.println("|");
