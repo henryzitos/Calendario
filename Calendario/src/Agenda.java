@@ -71,7 +71,6 @@ public class Agenda extends Funcoes {
                 System.out.println("| Digite a data (dd/mm/yyyy): ");
                 sc.nextLine();
                 auxt = sc.nextLine().trim();
-
                 System.out.println("| * Eventos");
                 for(Evento evento: listaEventos){
                     if (auxt == evento.getDataInicio()) {
@@ -98,7 +97,7 @@ public class Agenda extends Funcoes {
 
                 System.out.println("| * Tarefas");
                 for (Tarefa tarefa: listaTarefas) {
-                    if(auxt == tarefa.getData()){
+                    if(auxt.equals(tarefa.getData())){
                         System.out.println("| + " + tarefa.getNome());
                         System.out.println("|");
                     }

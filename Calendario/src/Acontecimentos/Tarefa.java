@@ -11,11 +11,19 @@ public class Tarefa {
         this.mes = mes;
         this.ano = ano;
         if (dia > 0 && dia < 10) {
-            this.data = "0" + dia + "/" + mes + "/" + ano;
-        } else if (mes > 0 && mes < 12) {
-            this.data = dia + "/" + "0" + mes + "/" + ano;
-        } else if (dia > 0 && dia < 10 && mes > 0 && mes < 12) {
-            this.data = "0" + dia + "/" + "0" + mes + "/" + ano;
+            if (mes > 0 && mes < 10) {
+                this.data = "0" + dia + "/" + "0" + mes + "/" + ano;
+            }
+            else {
+                this.data = "0" + dia + "/" + mes + "/" + ano;
+            }
+        } else {
+            if (mes > 0 && mes < 10) {
+                this.data = dia + "/" + "0" + mes + "/" + ano;
+            }
+            else {
+                this.data = dia + "/" + mes + "/" + ano;
+            }
         }
         idBase++;
     }
