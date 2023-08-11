@@ -57,4 +57,15 @@ public class Funcoes {
         }
         return minuto;
     }
+
+    public static void menuEdit(){
+        System.out.println("|-----------------MENU-----------------|");
+        System.out.println("|-----------------EDIT-----------------|");
+        System.out.println("|                                      |");
+        System.out.println("|                                      |");
+        System.out.println("|                                      |");
+        System.out.println("|                                      |");
+        System.out.println("|--------------------------------------|");
+        System.out.printf("|--------------------------------------> ");
+    }
 }

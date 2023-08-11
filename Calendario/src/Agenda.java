@@ -54,20 +54,47 @@ public class Agenda extends Funcoes {
 
         System.out.println("- Visualizar eventos ");
         System.out.println(" Selecione uma opção:");
-        System.out.println("1 - Procura por data.");
-        System.out.println("2 - Procura por dia. ");
-        System.out.println("3 - Procura por mês. ");
-        System.out.println("4 - Procura por ano. ");
-        System.out.println("5 - Voltar ao menu.  ");
+        System.out.println("1 - Listar tudo.     ");
+        System.out.println("2 - Procura por data.");
+        System.out.println("3 - Procura por dia. ");
+        System.out.println("4 - Procura por mês. ");
+        System.out.println("5 - Procura por ano. ");
+        System.out.println("6 - Voltar ao menu.  ");
         opc = sc.nextInt();
 
-        while (opc != 1 && opc != 2 && opc != 3 && opc != 4 && opc != 5){
+        while (opc != 1 && opc != 2 && opc != 3 && opc != 4 && opc != 5 && opc != 6){
             System.out.println("Digite uma opção válida!");
             opc = sc.nextInt();
         }
 
         switch(opc){
             case 1:
+                System.out.println("| * Eventos");
+                for(Evento evento: listaEventos){
+                    System.out.println("| + " + evento.getNome());
+                    System.out.println("| Começa no dia: " + evento.getDataInicio() + " às: " + evento.getHorarioInicio());
+                    System.out.println("| Termina no dia: " + evento.getDataFim() + " às: " + evento.getHorarioFim());
+                    System.out.println("|");
+                }
+
+                System.out.println("| * Lembretes");
+                for (Lembrete lembrete: listaLembretes) {
+                    System.out.println("| + " + lembrete.getNome());
+                    System.out.println("| Está marcado para o dia: " + lembrete.getData());
+                    System.out.println("| Horário: " + lembrete.getHorario());
+                    System.out.println("|");
+                }
+
+                System.out.println("| * Tarefas");
+                for (Tarefa tarefa: listaTarefas) {
+                    System.out.println("| + " + tarefa.getNome());
+                    System.out.println("| Está marcado para o dia:  " + tarefa.getData());
+                    System.out.println("|");
+                }
+                visuEventos();
+                break;
+
+            case 2:
                 System.out.println("| Digite a data (dd/mm/yyyy): ");
                 sc.nextLine();
                 auxt = sc.nextLine().trim();
@@ -105,28 +132,58 @@ public class Agenda extends Funcoes {
                 visuEventos();
                 break;
 
-            case 2:
+            case 3:
                 System.out.println("| Digite o dia: ");
                 aux = sc.nextInt();
-                //Adicionar função para percorrer as listas baseada no dia
+                System.out.println("| * Eventos");
+                for(Evento evento: listaEventos){
+                    if (aux == evento.getDia()) {
+                        System.out.println("| + " + evento.getNome());
+                        System.out.println("| Começa às: " + evento.getHorarioInicio());
+                        System.out.println("| Termina no dia: " + evento.getDataFim() + " às: " + evento.getHorarioFim());
+                        System.out.println("|");
+                    } else if (aux == evento.getDiaFim()) {
+                        System.out.println("| + " + evento.getNome());
+                        System.out.println("| Começa no dia: " + evento.getDataInicio() + " às: " + evento.getHorarioInicio());
+                        System.out.println("| Termina às" + evento.getHorarioFim());
+                        System.out.println("|");
+                    }
+                }
+
+                System.out.println("| * Lembretes");
+                for (Lembrete lembrete: listaLembretes) {
+                    if(aux == lembrete.getDia()){
+                        System.out.println("| + " + lembrete.getNome());
+                        System.out.println("| Está marcado para: " + lembrete.getHorario());
+                        System.out.println("|");
+                    }
+                }
+
+                System.out.println("| * Tarefas");
+                for (Tarefa tarefa: listaTarefas) {
+                    if(aux == tarefa.getDia()){
+                        System.out.println("| + " + tarefa.getNome());
+                        System.out.println("|");
+                    }
+                }
                 visuEventos();
                 break;
 
-            case 3:
+            case 4:
                 System.out.println("| Digite o mês: ");
                 aux = sc.nextInt();
                 //Adicionar função para percorrer as listas baseada no mês
                 visuEventos();
                 break;
 
-            case 4:
+            case 5:
                 System.out.println("| Digite o ano: ");
                 aux = sc.nextInt();
                 //Adicionar função para percorrer as listas baseada no ano
                 visuEventos();
                 break;
 
-            case 5:
+            case 6:
                 menu();
         }
     }
@@ -169,7 +226,7 @@ public class Agenda extends Funcoes {
                            diaE = Dia(auxE);
                        }
                     }
-                } else if (mesE == 4 || mesE == 6 || mesE == 9 || mesE == 11 && diaE > 30){
+                } else if (mesE == 4 && diaE > 30|| mesE == 6 && diaE > 30 || mesE == 9 && diaE > 30   || mesE == 11 && diaE > 30){
                     System.out.println("| * Seu mês tem 30 dias. Por favor corrija.");
                     diaE = Dia(auxE);
                     if (diaE > 30){
@@ -185,7 +242,7 @@ public class Agenda extends Funcoes {
                 char opc;
                 System.out.println("| - A data do fim do evento é a mesma? Digite S para Sim");
                 opc = sc.next().charAt(0);
-                if(opc == 'S'){
+                if(opc == 'S' || opc == 's'){
                     diaEF = diaE;
                     mesEF = mesE;
                     anoEF = anoE;
@@ -315,12 +372,34 @@ public class Agenda extends Funcoes {
     }
 
     public static void editarEvento() {
+        String auxiliar;
+        int auxiliarDia, auxiliarMes, auxiliarAno;
+
+        System.out.println("Digite a data que deseja alterar: ");
+        sc.nextLine();
+        auxiliar = sc.nextLine();
+        for (Tarefa tarefaEdit:listaTarefas) {
+            if (auxiliar.equals(tarefaEdit.getData())){
+
+            }
+        }
+        /*for (Evento eventoEdit:listaEventos) {
+            if(auxiliar.equals(eventoEdit.getDataInicio())){
+                System.out.println("Digite a nova data - Dia: ");
+                auxiliarDia = sc.nextInt();
+                System.out.println("Digite a nova data - Mês: ");
+                auxiliarMes = sc.nextInt();
+                System.out.println("Digite a nova data - Ano: ");
+                auxiliarAno = sc.nextInt();
+
+            }
+        }*/
+
         System.out.println("- Editar evento.");
     }
 
     public static void excluirEvento() {
         System.out.println("- Excluir evento.");
     }
-
 
 }
