@@ -23,13 +23,13 @@ public class Agenda extends Funcoes {
         System.out.printf("|--------------------------------------> ");
         opc = sc.nextInt();
 
-        while(opc != 1 && opc != 2 && opc != 3 && opc != 4) {
+        while (opc != 1 && opc != 2 && opc != 3 && opc != 4) {
             System.out.println("|- Opção inválida! Digite outro número. -|");
             System.out.printf("|--------------------------------------> ");
             opc = sc.nextInt();
         }
 
-        switch(opc){
+        switch (opc) {
             case 1:
                 visuEventos();
                 break;
@@ -52,139 +52,297 @@ public class Agenda extends Funcoes {
         String auxt;
         int opc, aux;
 
-        System.out.println("- Visualizar eventos ");
-        System.out.println(" Selecione uma opção:");
-        System.out.println("1 - Listar tudo.     ");
-        System.out.println("2 - Procura por data.");
-        System.out.println("3 - Procura por dia. ");
-        System.out.println("4 - Procura por mês. ");
-        System.out.println("5 - Procura por ano. ");
-        System.out.println("6 - Voltar ao menu.  ");
+        System.out.println("|  - Visualizar eventos ");
+        System.out.println("|  Selecione uma opção:");
+        System.out.println("| 1 - Procura por data.");
+        System.out.println("| 2 - Procura por dia. ");
+        System.out.println("| 3 - Procura por mês. ");
+        System.out.println("| 4 - Procura por ano. ");
+        System.out.println("| 5 - Voltar ao menu.  ");
         opc = sc.nextInt();
 
-        while (opc != 1 && opc != 2 && opc != 3 && opc != 4 && opc != 5 && opc != 6){
+        while (opc != 1 && opc != 2 && opc != 3 && opc != 4 && opc != 5) {
             System.out.println("Digite uma opção válida!");
             opc = sc.nextInt();
         }
 
-        switch(opc){
+        switch (opc) {
             case 1:
-                System.out.println("| * Eventos");
-                for(Evento evento: listaEventos){
-                    System.out.println("| + " + evento.getNome());
-                    System.out.println("| Começa no dia: " + evento.getDataInicio() + " às: " + evento.getHorarioInicio());
-                    System.out.println("| Termina no dia: " + evento.getDataFim() + " às: " + evento.getHorarioFim());
-                    System.out.println("|");
-                }
-
-                System.out.println("| * Lembretes");
-                for (Lembrete lembrete: listaLembretes) {
-                    System.out.println("| + " + lembrete.getNome());
-                    System.out.println("| Está marcado para o dia: " + lembrete.getData());
-                    System.out.println("| Horário: " + lembrete.getHorario());
-                    System.out.println("|");
-                }
-
-                System.out.println("| * Tarefas");
-                for (Tarefa tarefa: listaTarefas) {
-                    System.out.println("| + " + tarefa.getNome());
-                    System.out.println("| Está marcado para o dia:  " + tarefa.getData());
-                    System.out.println("|");
-                }
-                visuEventos();
+                System.out.println("| Digite a data (dd/mm/aaaa): ");
+                sc.nextLine();
+                auxt = sc.nextLine().trim();
+                procuraData(auxt);
                 break;
 
             case 2:
-                System.out.println("| Digite a data (dd/mm/yyyy): ");
-                sc.nextLine();
-                auxt = sc.nextLine().trim();
-                System.out.println("| * Eventos");
-                for(Evento evento: listaEventos){
-                    if (auxt.equals(evento.getDataInicio())) {
-                        System.out.println("| + " + evento.getNome());
-                        System.out.println("| Começa às: " + evento.getHorarioInicio());
-                        System.out.println("| Termina no dia: " + evento.getDataFim() + " às: " + evento.getHorarioFim());
-                        System.out.println("|");
-                    } else if (auxt.equals(evento.getDataFim())) {
-                        System.out.println("| + " + evento.getNome());
-                        System.out.println("| Começa no dia: " + evento.getDataInicio() + " às: " + evento.getHorarioInicio());
-                        System.out.println("| Termina às" + evento.getHorarioFim());
-                        System.out.println("|");
-                    }
-                }
-
-                System.out.println("| * Lembretes");
-                for (Lembrete lembrete: listaLembretes) {
-                    if(auxt.equals(lembrete.getData())){
-                        System.out.println("| + " + lembrete.getNome());
-                        System.out.println("| Está marcado para: " + lembrete.getHorario());
-                        System.out.println("|");
-                    }
-                }
-
-                System.out.println("| * Tarefas");
-                for (Tarefa tarefa: listaTarefas) {
-                    if(auxt.equals(tarefa.getData())){
-                        System.out.println("| + " + tarefa.getNome());
-                        System.out.println("|");
-                    }
-                }
+                System.out.println("| Digite o dia: ");
+                aux = sc.nextInt();
+                procuraDia(aux);
                 visuEventos();
                 break;
 
             case 3:
-                System.out.println("| Digite o dia: ");
+                System.out.println("| Digite o mês: ");
                 aux = sc.nextInt();
-                System.out.println("| * Eventos");
-                for(Evento evento: listaEventos){
-                    if (aux == evento.getDia()) {
-                        System.out.println("| + " + evento.getNome());
-                        System.out.println("| Começa às: " + evento.getHorarioInicio());
-                        System.out.println("| Termina no dia: " + evento.getDataFim() + " às: " + evento.getHorarioFim());
-                        System.out.println("|");
-                    } else if (aux == evento.getDiaFim()) {
-                        System.out.println("| + " + evento.getNome());
-                        System.out.println("| Começa no dia: " + evento.getDataInicio() + " às: " + evento.getHorarioInicio());
-                        System.out.println("| Termina às" + evento.getHorarioFim());
-                        System.out.println("|");
-                    }
-                }
-
-                System.out.println("| * Lembretes");
-                for (Lembrete lembrete: listaLembretes) {
-                    if(aux == lembrete.getDia()){
-                        System.out.println("| + " + lembrete.getNome());
-                        System.out.println("| Está marcado para: " + lembrete.getHorario());
-                        System.out.println("|");
-                    }
-                }
-
-                System.out.println("| * Tarefas");
-                for (Tarefa tarefa: listaTarefas) {
-                    if(aux == tarefa.getDia()){
-                        System.out.println("| + " + tarefa.getNome());
-                        System.out.println("|");
-                    }
-                }
+                procuraMes(aux);
                 visuEventos();
                 break;
 
             case 4:
-                System.out.println("| Digite o mês: ");
+                System.out.println("| Digite o ano: ");
                 aux = sc.nextInt();
-                //Adicionar função para percorrer as listas baseada no mês
+                procuraAno(aux);
                 visuEventos();
                 break;
 
             case 5:
-                System.out.println("| Digite o ano: ");
-                aux = sc.nextInt();
-                //Adicionar função para percorrer as listas baseada no ano
-                visuEventos();
-                break;
-
-            case 6:
                 menu();
+        }
+    }
+
+    public static void procuraData(String data) {
+        //Eventos
+        if (listaEventos.isEmpty()) {
+            System.out.println("| Não há eventos na sua agenda.");
+        } else {
+            boolean temEvento = false;
+            System.out.println("| * Eventos");
+            for (Evento e : listaEventos) {
+                if (data.equals(e.getDataInicio())) {
+                    System.out.println("| + " + e.getNome());
+                    System.out.println("| Começa às: " + e.getHorarioInicio());
+                    System.out.println("| Termina no dia: " + e.getDataFim() + " às: " + e.getHorarioFim());
+                    System.out.println("|");
+                    temEvento = true;
+                } else if (data.equals(e.getDataFim())) {
+                    System.out.println("| + " + e.getNome());
+                    System.out.println("| Começa no dia: " + e.getDataInicio() + " às: " + e.getHorarioInicio());
+                    System.out.println("| Termina às" + e.getHorarioFim());
+                    System.out.println("|");
+                    temEvento = true;
+                }
+            }
+            if (!temEvento) {
+                System.out.println("| Não há um Evento com a data digitada.");
+            }
+        }
+
+        //Lembretes
+        if (listaLembretes.isEmpty()) {
+            System.out.println("| A lista de Lembretes está vazia.");
+        } else {
+            boolean temLembrete = false;
+            System.out.println("| * Lembretes");
+            for (Lembrete l : listaLembretes) {
+                if (data.equals(l.getData())) {
+                    System.out.println("| + " + l.getNome());
+                    System.out.println("| Está marcado para: " + l.getHorario());
+                    System.out.println("|");
+                    temLembrete = true;
+                    break;
+                }
+            }
+            if (!temLembrete) {
+                System.out.println("| Não há um Lembrete com a data digitada.");
+            }
+        }
+
+        //Tarefas
+        if (listaTarefas.isEmpty()) {
+            System.out.println("| A lista de Tarefas está vazia.");
+        } else {
+            boolean temTarefa = false;
+            System.out.println("| * Tarefas");
+            for (Tarefa t : listaTarefas) {
+                if (data.equals(t.getData())) {
+                    System.out.println("| + " + t.getNome());
+                    System.out.println("|");
+                    temTarefa = true;
+                    break;
+                }
+            }
+            if (!temTarefa) {
+                System.out.println("| Não há uma Tarefa com a data digitada.");
+            }
+        }
+
+        visuEventos();
+    }
+
+    public static void procuraDia(int dia) {
+        if (listaEventos.isEmpty()) {
+            System.out.println("| Não há Eventos na sua agenda.");
+        } else {
+            boolean temEvento = false;
+            System.out.println("| * Eventos");
+            for (Evento e : listaEventos) {
+                if (dia == e.getDia()) {
+                    System.out.println("| + " + e.getNome());
+                    System.out.println("| Começa no dia: " + e.getDataInicio() + " às: " + e.getHorarioInicio());
+                    System.out.println("| Termina no dia: " + e.getDataFim() + " às: " + e.getHorarioFim());
+                    System.out.println("|");
+                    temEvento = true;
+                }
+            }
+            if (!temEvento) {
+                System.out.println("| Não há um Evento com o dia digitado.");
+            }
+        }
+
+        if (listaLembretes.isEmpty()) {
+            System.out.println("| Não há Lembretes na sua agenda.");
+        } else {
+            boolean temLembrete = false;
+            System.out.println("| * Lembretes");
+            for (Lembrete l : listaLembretes) {
+                if (dia == l.getDia()) {
+                    System.out.println("| + " + l.getNome());
+                    System.out.println("| Data: " + l.getData());
+                    System.out.println("| Horário: " + l.getHorario());
+                    System.out.println("|");
+                    temLembrete = true;
+                    break;
+                }
+            }
+            if (!temLembrete) {
+                System.out.println("| Não há um Lembrete com o dia digitado.");
+            }
+        }
+
+        if (listaTarefas.isEmpty()) {
+            System.out.println("| Não há Tarefas na sua agenda.");
+        } else {
+            boolean temTarefa = false;
+            System.out.println("| * Tarefas");
+            for (Tarefa t : listaTarefas) {
+                if (dia == t.getDia()) {
+                    System.out.println("| + " + t.getNome());
+                    System.out.println("| Dia: " + t.getData());
+                    temTarefa = true;
+                    break;
+                }
+            }
+            if (!temTarefa) {
+                System.out.println("| Não há uma Tarefa com o dia digitado.");
+            }
+        }
+    }
+
+    public static void procuraMes(int mes) {
+        if (listaEventos.isEmpty()) {
+            System.out.println("| Não há Eventos na sua agenda.");
+        } else {
+            boolean temEvento = false;
+            System.out.println("| * Eventos");
+            for (Evento e : listaEventos) {
+                if (mes == e.getMes()) {
+                    System.out.println("| + " + e.getNome());
+                    System.out.println("| Começa no dia: " + e.getDataInicio() + " às: " + e.getHorarioInicio());
+                    System.out.println("| Termina no dia: " + e.getDataFim() + " às: " + e.getHorarioFim());
+                    System.out.println("|");
+                    temEvento = true;
+                }
+                if (!temEvento) {
+                    System.out.println("| Não há um Evento com o mês digitado.");
+                }
+            }
+
+            if (listaLembretes.isEmpty()) {
+                System.out.println("| Não há Lembretes na sua agenda.");
+            } else {
+                boolean temLembrete = false;
+                System.out.println("| * Lembretes");
+                for (Lembrete l : listaLembretes) {
+                    if (mes == l.getMes()) {
+                        System.out.println("| + " + l.getNome());
+                        System.out.println("| Data: " + l.getData());
+                        System.out.println("| Horário: " + l.getHorario());
+                        System.out.println("|");
+                        temLembrete = true;
+                        break;
+                    }
+                }
+                if (!temLembrete) {
+                    System.out.println("| Não há um Lembrete com o mês digitado.");
+                }
+            }
+
+            if (listaTarefas.isEmpty()) {
+                System.out.println("| Não há Tarefas na sua agenda.");
+            } else {
+                boolean temTarefa = false;
+                System.out.println("| * Tarefas");
+                for (Tarefa t : listaTarefas) {
+                    if (mes == t.getMes()) {
+                        System.out.println("| + " + t.getNome());
+                        System.out.println("| Dia: " + t.getData());
+                        temTarefa = true;
+                        break;
+                    }
+                }
+                if (!temTarefa) {
+                    System.out.println("| Não há uma Tarefa com o mês digitado.");
+                }
+            }
+        }
+    }
+
+    public static void procuraAno(int ano) {
+        if (listaEventos.isEmpty()) {
+            System.out.println("| Não há Eventos na sua agenda.");
+        } else {
+            boolean temEvento = false;
+            System.out.println("| * Eventos");
+            for (Evento e : listaEventos) {
+                if (ano == e.getAno()) {
+                    System.out.println("| + " + e.getNome());
+                    System.out.println("| Começa no dia: " + e.getDataInicio() + " às: " + e.getHorarioInicio());
+                    System.out.println("| Termina no dia: " + e.getDataFim() + " às: " + e.getHorarioFim());
+                    System.out.println("|");
+                    temEvento = true;
+                }
+                if (!temEvento) {
+                    System.out.println("| Não há um Evento com o dia digitado.");
+                }
+            }
+
+            if (listaLembretes.isEmpty()) {
+                System.out.println("| Não há Lembretes na sua agenda.");
+            } else {
+                boolean temLembrete = false;
+                System.out.println("| * Lembretes");
+                for (Lembrete l : listaLembretes) {
+                    if (ano == l.getAno()) {
+                        System.out.println("| + " + l.getNome());
+                        System.out.println("| Data: " + l.getData());
+                        System.out.println("| Horário: " + l.getHorario());
+                        System.out.println("|");
+                        temLembrete = true;
+                        break;
+                    }
+                }
+                if (!temLembrete) {
+                    System.out.println("| Não há um Lembrete com o dia digitado.");
+                }
+            }
+
+            if (listaTarefas.isEmpty()) {
+                System.out.println("| Não há Tarefas na sua agenda.");
+            } else {
+                boolean temTarefa = false;
+                System.out.println("| * Tarefas");
+                for (Tarefa t : listaTarefas) {
+                    if (ano == t.getAno()) {
+                        System.out.println("| + " + t.getNome());
+                        System.out.println("| Dia: " + t.getData());
+                        temTarefa = true;
+                        break;
+                    }
+                }
+                if (!temTarefa) {
+                    System.out.println("| Não há uma Tarefa com o dia digitado.");
+                }
+            }
         }
     }
 
@@ -194,17 +352,17 @@ public class Agenda extends Funcoes {
         System.out.println("|              Criar evento              |");
         System.out.println("| *      Escolha o tipo de evento:     * |");
         System.out.println("| 1 - Evento | 2 - Lembrete | 3 - Tarefa |");
-        System.out.printf("| 4 - Voltar para menu. -------------->  ");
+        System.out.print("| 4 - Voltar para menu. -------------->  ");
         in = sc.nextInt();
 
-        while (in != 1 && in != 2 && in != 3 && in != 4){
+        while (in != 1 && in != 2 && in != 3 && in != 4) {
             System.out.println("* -------------------------------------- *");
             System.out.println("|   Digite uma opção válida, por favor   |");
-            System.out.printf("| ------------------------------------>  ");
+            System.out.print("| ------------------------------------>  ");
             in = sc.nextInt();
         }
 
-        switch (in){
+        switch (in) {
 //Marcador
             case 1:
                 int auxE = 0;
@@ -217,20 +375,20 @@ public class Agenda extends Funcoes {
                 int diaE = Dia(auxE);
 
                 int mesE = Mes(auxE);
-                if (mesE == 2 && diaE > 29){
+                if (mesE == 2 && diaE > 29) {
                     System.out.println("| * Fevereiro tem apenas 28 ou 29 dias. Por favor corrija.");
                     diaE = Dia(auxE);
-                    if (diaE > 29){
-                       while (diaE > 29){
-                           System.out.printf("| * Digite um dia válido. ->");
-                           diaE = Dia(auxE);
-                       }
+                    if (diaE > 29) {
+                        while (diaE > 29) {
+                            System.out.printf("| * Digite um dia válido. ->");
+                            diaE = Dia(auxE);
+                        }
                     }
-                } else if (mesE == 4 && diaE > 30|| mesE == 6 && diaE > 30 || mesE == 9 && diaE > 30   || mesE == 11 && diaE > 30){
+                } else if (mesE == 4 || mesE == 6 || mesE == 9 || mesE == 11 && diaE > 30) {
                     System.out.println("| * Seu mês tem 30 dias. Por favor corrija.");
                     diaE = Dia(auxE);
-                    if (diaE > 30){
-                        while (diaE > 30){
+                    if (diaE > 30) {
+                        while (diaE > 30) {
                             System.out.printf("| * Digite um dia válido. ->");
                             diaE = Dia(auxE);
                         }
@@ -242,27 +400,27 @@ public class Agenda extends Funcoes {
                 char opc;
                 System.out.println("| - A data do fim do evento é a mesma? Digite S para Sim");
                 opc = sc.next().charAt(0);
-                if(opc == 'S' || opc == 's'){
+                if (opc == 'S') {
                     diaEF = diaE;
                     mesEF = mesE;
                     anoEF = anoE;
                 } else {
                     diaEF = Dia(auxE);
                     mesEF = Mes(auxE);
-                    if (mesEF == 2 && diaEF > 29){
+                    if (mesEF == 2 && diaEF > 29) {
                         System.out.println("| * Fevereiro tem apenas 28 ou 29 dias, por favor corrija.");
                         diaEF = Dia(auxE);
-                        if (diaEF > 29){
-                            while (diaEF > 29){
+                        if (diaEF > 29) {
+                            while (diaEF > 29) {
                                 System.out.printf("| * Digite um dia válido. ->");
                                 diaEF = Dia(auxE);
                             }
                         }
-                    } else if (mesEF == 4 || mesEF == 6 || mesEF == 9 || mesEF == 11 && diaEF > 30){
+                    } else if (mesEF == 4 || mesEF == 6 || mesEF == 9 || mesEF == 11 && diaEF > 30) {
                         System.out.println("| * Seu mês tem 30 dias. Por favor corrija.");
                         diaEF = Dia(auxE);
-                        if (diaEF > 30){
-                            while (diaEF > 30){
+                        if (diaEF > 30) {
+                            while (diaEF > 30) {
                                 System.out.printf("| * Digite um dia válido. ->");
                                 diaEF = Dia(auxE);
                             }
@@ -296,20 +454,20 @@ public class Agenda extends Funcoes {
 
                 int diaL = Dia(auxL);
                 int mesL = Mes(auxL);
-                if (mesL == 2 && diaL > 29){
+                if (mesL == 2 && diaL > 29) {
                     System.out.println("| * Fevereiro tem apenas 28 ou 29 dias, por favor corrija.");
                     diaL = Dia(auxL);
-                    if (diaL > 29){
-                        while (diaL > 29){
+                    if (diaL > 29) {
+                        while (diaL > 29) {
                             System.out.printf("| * Digite um dia válido. ->");
                             diaL = Dia(auxL);
                         }
                     }
-                } else if (mesL == 4 || mesL == 6 || mesL == 9 || mesL == 11 && diaL > 30){
+                } else if (mesL == 4 || mesL == 6 || mesL == 9 || mesL == 11 && diaL > 30) {
                     System.out.println("| * Seu mês tem 30 dias. Por favor corrija.");
                     diaL = Dia(auxL);
-                    if (diaL > 30){
-                        while (diaL > 30){
+                    if (diaL > 30) {
+                        while (diaL > 30) {
                             System.out.printf("| * Digite um dia válido. ->");
                             diaL = Dia(auxL);
                         }
@@ -336,20 +494,20 @@ public class Agenda extends Funcoes {
 
                 int diaT = Dia(auxT);
                 int mesT = Mes(auxT);
-                if (mesT == 2 && diaT > 29){
+                if (mesT == 2 && diaT > 29) {
                     System.out.println("| * Fevereiro tem apenas 28 ou 29 dias, por favor corrija.");
                     diaT = Dia(auxT);
-                    if (diaT > 29){
-                        while (diaT > 29){
+                    if (diaT > 29) {
+                        while (diaT > 29) {
                             System.out.printf("| * Digite um dia válido. ->");
                             diaT = Dia(auxT);
                         }
                     }
-                } else if (mesT == 4 || mesT == 6 || mesT == 9 || mesT == 11 && diaT > 30){
+                } else if (mesT == 4 || mesT == 6 || mesT == 9 || mesT == 11 && diaT > 30) {
                     System.out.println("| * Seu mês tem 30 dias. Por favor corrija.");
                     diaT = Dia(auxT);
-                    if (diaT > 30){
-                        while (diaT > 30){
+                    if (diaT > 30) {
+                        while (diaT > 30) {
                             System.out.printf("| * Digite um dia válido. ->");
                             diaT = Dia(auxT);
                         }
@@ -372,34 +530,10 @@ public class Agenda extends Funcoes {
     }
 
     public static void editarEvento() {
-        String auxiliar;
-        int auxiliarDia, auxiliarMes, auxiliarAno;
-
-        System.out.println("Digite a data que deseja alterar: ");
-        sc.nextLine();
-        auxiliar = sc.nextLine();
-        for (Tarefa tarefaEdit:listaTarefas) {
-            if (auxiliar.equals(tarefaEdit.getData())){
-
-            }
-        }
-        /*for (Evento eventoEdit:listaEventos) {
-            if(auxiliar.equals(eventoEdit.getDataInicio())){
-                System.out.println("Digite a nova data - Dia: ");
-                auxiliarDia = sc.nextInt();
-                System.out.println("Digite a nova data - Mês: ");
-                auxiliarMes = sc.nextInt();
-                System.out.println("Digite a nova data - Ano: ");
-                auxiliarAno = sc.nextInt();
-
-            }
-        }*/
-
-        System.out.println("- Editar evento.");
+        System.out.println("| Digite o ID do evento que você quer editar.");
     }
 
     public static void excluirEvento() {
         System.out.println("- Excluir evento.");
     }
-
 }

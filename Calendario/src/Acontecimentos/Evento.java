@@ -17,6 +17,7 @@ public class Evento {
         this.horaFim = horaFim;
         this.minutoInicio = minutoInicio;
         this.minutoFim = minutoFim;
+
         if (dia > 0 && dia < 10) {
             if (mes > 0 && mes < 10) {
                 this.dataInicio = "0" + dia + "/" + "0" + mes + "/" + ano;
@@ -47,7 +48,6 @@ public class Evento {
                 this.dataFim = dia + "/" + mes + "/" + ano;
             }
         }
-        this.horarioInicio = horaInicio + "h" + minutoInicio;
         this.horarioFim = horaFim + "h" + minutoFim;
         idBase++;
     }
