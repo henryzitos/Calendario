@@ -530,7 +530,7 @@ public class Agenda extends Funcoes {
     }
 
     public static void editarEvento() {
-        System.out.println("| Digite o ID do evento que você quer editar.");
+        System.out.println("| Digite o ID do evento que você quer editar. Caso não saiba, digite 'N' ou 'n'");
     }
 
     public static void excluirEvento() {
