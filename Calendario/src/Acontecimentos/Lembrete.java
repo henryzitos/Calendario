@@ -4,8 +4,8 @@ public class Lembrete {
     private int idL, idBase, dia, mes, ano, hora, minutos;
     private String nome, data, horario;
 
-    public Lembrete(String nome, int dia, int mes, int ano, int hora, int minutos) {
-        this.idL = idBase;
+    public Lembrete(String nome, int dia, int mes, int ano, int hora, int minutos, int idL) {
+        this.idL = idL;
         this.nome = nome;
         this.dia = dia;
         this.mes = mes;
@@ -28,7 +28,6 @@ public class Lembrete {
             }
         }
         this.horario = hora + "h" + minutos;
-        idBase++;
     }
 
     public String getNome() {
@@ -81,5 +80,21 @@ public class Lembrete {
 
     public void setMinutos(int minutos) {
         this.minutos = minutos;
+    }
+
+    public int getIdL() {
+        return idL;
+    }
+
+    public void setIdL(int idL) {
+        this.idL = idL;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
     }
 }

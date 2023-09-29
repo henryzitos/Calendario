@@ -4,8 +4,8 @@ public class Tarefa {
     private int idT, idBase, dia, mes, ano;
     private String nome, data;
 
-    public Tarefa(String nome, int dia, int mes, int ano) {
-        this.idT = idBase;
+    public Tarefa(String nome, int dia, int mes, int ano, int idT) {
+        this.idT = idT;
         this.nome = nome;
         this.dia = dia;
         this.mes = mes;
@@ -25,7 +25,6 @@ public class Tarefa {
                 this.data = dia + "/" + mes + "/" + ano;
             }
         }
-        idBase++;
     }
 
     public String getNome() {
@@ -58,5 +57,17 @@ public class Tarefa {
 
     public void setAno(int ano) {
         this.ano = ano;
+    }
+
+    public int getIdT() {
+        return idT;
+    }
+
+    public void setIdT(int idT) {
+        this.idT = idT;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 }

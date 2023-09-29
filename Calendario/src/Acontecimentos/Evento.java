@@ -4,8 +4,8 @@ public class Evento {
     private int idE, idBase, dia, mes, ano, diaFim, mesFim, anoFim, horaInicio, horaFim, minutoInicio, minutoFim;
     private String nome, dataInicio, dataFim, horarioInicio, horarioFim;
 
-    public Evento(String nome, int dia, int mes, int ano, int diaFim, int mesFim, int anoFim, int horaInicio, int minutoInicio, int horaFim, int minutoFim) {
-        this.idE = idBase;
+    public Evento(String nome, int dia, int mes, int ano, int diaFim, int mesFim, int anoFim, int horaInicio, int minutoInicio, int horaFim, int minutoFim, int idE) {
+        this.idE = idE;
         this.nome = nome;
         this.dia = dia;
         this.diaFim = diaFim;
@@ -33,6 +33,7 @@ public class Evento {
                 this.dataInicio = dia + "/" + mes + "/" + ano;
             }
         }
+        this.horarioInicio = horaInicio + "h" + minutoInicio;
         if (dia > 0 && dia < 10) {
             if (mes > 0 && mes < 10) {
                 this.dataFim = "0" + dia + "/" + "0" + mes + "/" + ano;
@@ -49,7 +50,6 @@ public class Evento {
             }
         }
         this.horarioFim = horaFim + "h" + minutoFim;
-        idBase++;
     }
 
     public String getNome() {
@@ -150,5 +150,29 @@ public class Evento {
 
     public void setMinutoFim(int minutoFim) {
         this.minutoFim = minutoFim;
+    }
+
+    public int getIdE() {
+        return idE;
+    }
+
+    public void setIdE(int idE) {
+        this.idE = idE;
+    }
+
+    public void setDataInicio(String dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public void setDataFim(String dataFim) {
+        this.dataFim = dataFim;
+    }
+
+    public void setHorarioInicio(String horarioInicio) {
+        this.horarioInicio = horarioInicio;
+    }
+
+    public void setHorarioFim(String horarioFim) {
+        this.horarioFim = horarioFim;
     }
 }

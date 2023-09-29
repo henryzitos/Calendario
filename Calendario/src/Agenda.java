@@ -6,6 +6,7 @@ public class Agenda extends Funcoes {
     static List<Evento> listaEventos = new ArrayList<>();
     static List<Tarefa> listaTarefas = new ArrayList<>();
     static List<Lembrete> listaLembretes = new ArrayList<>();
+    static int idBase = 0;
 
     public static void main(String[] args) {
         menu();
@@ -112,12 +113,14 @@ public class Agenda extends Funcoes {
                     System.out.println("| + " + e.getNome());
                     System.out.println("| Começa às: " + e.getHorarioInicio());
                     System.out.println("| Termina no dia: " + e.getDataFim() + " às: " + e.getHorarioFim());
+                    System.out.println("| ID: " + e.getIdE());
                     System.out.println("|");
                     temEvento = true;
                 } else if (data.equals(e.getDataFim())) {
                     System.out.println("| + " + e.getNome());
                     System.out.println("| Começa no dia: " + e.getDataInicio() + " às: " + e.getHorarioInicio());
                     System.out.println("| Termina às" + e.getHorarioFim());
+                    System.out.println("| ID: " + e.getIdE());
                     System.out.println("|");
                     temEvento = true;
                 }
@@ -137,6 +140,7 @@ public class Agenda extends Funcoes {
                 if (data.equals(l.getData())) {
                     System.out.println("| + " + l.getNome());
                     System.out.println("| Está marcado para: " + l.getHorario());
+                    System.out.println("| ID: " + l.getIdL());
                     System.out.println("|");
                     temLembrete = true;
                     break;
@@ -156,6 +160,7 @@ public class Agenda extends Funcoes {
             for (Tarefa t : listaTarefas) {
                 if (data.equals(t.getData())) {
                     System.out.println("| + " + t.getNome());
+                    System.out.println("| ID: " + t.getIdT());
                     System.out.println("|");
                     temTarefa = true;
                     break;
@@ -437,11 +442,14 @@ public class Agenda extends Funcoes {
                 int horaF = Hora(auxE);
                 int minutoF = Minuto(auxE);
 
-                Evento evento = new Evento(nomeE, diaE, mesE, anoE, diaEF, mesEF, anoEF, horaI, minutoI, horaF, minutoF);
+                int idE = idBase;
+
+                Evento evento = new Evento(nomeE, diaE, mesE, anoE, diaEF, mesEF, anoEF, horaI, minutoI, horaF, minutoF, idE);
                 listaEventos.add(evento);
 
                 System.out.println("| * Evento criado com sucesso!");
                 System.out.println("* -------------------------------------- *");
+                idBase++;
                 criarEvento();
                 break;
 //Marcador
@@ -477,11 +485,14 @@ public class Agenda extends Funcoes {
                 int horaL = Hora(auxL);
                 int minutoL = Minuto(auxL);
 
-                Lembrete lembrete = new Lembrete(nomeL, diaL, mesL, anoL, horaL, minutoL);
+                int idL = idBase;
+
+                Lembrete lembrete = new Lembrete(nomeL, diaL, mesL, anoL, horaL, minutoL, idL);
                 listaLembretes.add(lembrete);
 
                 System.out.println("| * Lembrete criado com sucesso!");
                 System.out.println("* -------------------------------------- *");
+                idBase++;
                 criarEvento();
                 break;
 //Marcador
@@ -515,11 +526,14 @@ public class Agenda extends Funcoes {
                 }
                 int anoT = Ano(auxT);
 
-                Tarefa tarefa = new Tarefa(nomeT, diaT, mesT, anoT);
+                int idT = idBase;
+
+                Tarefa tarefa = new Tarefa(nomeT, diaT, mesT, anoT, idT);
                 listaTarefas.add(tarefa);
 
                 System.out.println("| * Tarefa criada com sucesso!");
                 System.out.println("* -------------------------------------- *");
+                idBase++;
                 criarEvento();
                 break;
 //Marcador
@@ -530,10 +544,318 @@ public class Agenda extends Funcoes {
     }
 
     public static void editarEvento() {
-        System.out.println("| Digite o ID do evento que você quer editar. Caso não saiba, digite 'N' ou 'n'");
+        String auxt;
+        int opc;
+
+        System.out.println("| Digite a data (dd/mm/aaaa): ");
+        sc.nextLine();
+        auxt = sc.nextLine().trim();
+        procuraData(auxt);
+
+        System.out.println("| Digite o ID do acontecimento -> ");
+        opc = sc.nextInt();
+
+        for (Evento e : listaEventos) {
+            if (opc == e.getIdE()) {
+                int auxE = 0;
+                int novoDEF, novoMEF, novoAEF;
+                System.out.println("* -------------------------------------- *");
+
+                System.out.println("| - Digite o nome do Evento: ");
+                sc.nextLine();
+                String nomeE = sc.nextLine();
+                int novoDE = Dia(auxE);
+
+                int novoME = Mes(auxE);
+                if (novoME == 2 && novoDE > 29) {
+                    System.out.println("| * Fevereiro tem apenas 28 ou 29 dias. Por favor corrija.");
+                    novoDE = Dia(auxE);
+                    if (novoDE > 29) {
+                        while (novoDE > 29) {
+                            System.out.printf("| * Digite um dia válido. ->");
+                            novoDE = Dia(auxE);
+                        }
+                    }
+                } else if (novoME == 4 || novoME == 6 || novoME == 9 || novoME == 11 && novoDE > 30) {
+                    System.out.println("| * Seu mês tem 30 dias. Por favor corrija.");
+                    novoDE = Dia(auxE);
+                    if (novoDE > 30) {
+                        while (novoDE > 30) {
+                            System.out.printf("| * Digite um dia válido. ->");
+                            novoDE = Dia(auxE);
+                        }
+                    }
+                }
+
+                int novoAE = Ano(auxE);
+
+                char opcE;
+                System.out.println("| - A data do fim do evento é a mesma? Digite S para Sim");
+                opcE = sc.next().charAt(0);
+                if (opcE == 'S') {
+                    novoDEF = novoDE;
+                    novoMEF = novoME;
+                    novoAEF = novoAE;
+                } else {
+                    novoDEF = Dia(auxE);
+                    novoMEF = Mes(auxE);
+                    if (novoMEF == 2 && novoDEF > 29) {
+                        System.out.println("| * Fevereiro tem apenas 28 ou 29 dias, por favor corrija.");
+                        novoDEF = Dia(auxE);
+                        if (novoDEF > 29) {
+                            while (novoDEF > 29) {
+                                System.out.printf("| * Digite um dia válido. ->");
+                                novoDEF = Dia(auxE);
+                            }
+                        }
+                    } else if (novoMEF == 4 || novoMEF == 6 || novoMEF == 9 || novoMEF == 11 && novoDEF > 30) {
+                        System.out.println("| * Seu mês tem 30 dias. Por favor corrija.");
+                        novoDEF = Dia(auxE);
+                        if (novoDEF > 30) {
+                            while (novoDEF > 30) {
+                                System.out.printf("| * Digite um dia válido. ->");
+                                novoDEF = Dia(auxE);
+                            }
+                        }
+                    }
+                    novoAEF = Ano(auxE);
+                }
+
+                System.out.println("| - Horário de início");
+                int novaHI = Hora(auxE);
+                int novoMI = Minuto(auxE);
+
+                System.out.println("| - Horário de fim");
+                int novaHF = Hora(auxE);
+                int novoMF = Minuto(auxE);
+
+                e.setDia(novoDE);
+                e.setMes(novoME);
+                e.setAno(novoAE);
+                e.setHoraInicio(novaHI);
+                e.setMinutoInicio(novoMI);
+                e.setDiaFim(novoDEF);
+                e.setMesFim(novoMEF);
+                e.setAnoFim(novoAEF);
+                e.setHoraFim(novaHF);
+                e.setMinutoFim(novoMF);
+
+                String novaDI;
+                if (novoDE > 0 && novoDE < 10) {
+                    if (novoME > 0 && novoME < 10) {
+                        novaDI = "0" + novoDE + "/" + "0" + novoME + "/" + novoAE;
+                    }
+                    else {
+                        novaDI = "0" + novoDE + "/" + novoME + "/" + novoAE;
+                    }
+                } else {
+                    if (novoME > 0 && novoME < 10) {
+                        novaDI = novoDE + "/" + "0" + novoME + "/" + novoAE;
+                    }
+                    else {
+                        novaDI = novoDE + "/" + novoME + "/" + novoAE;
+                    }
+                }
+                String novoHI = novaHI + "h" + novoMI;
+                e.setHorarioInicio(novoHI);
+                e.setDataInicio(novaDI);
+
+                String novaDF;
+                if (novoDEF > 0 && novoDEF < 10) {
+                    if (novoMEF > 0 && novoMEF < 10) {
+                        novaDF = "0" + novoDEF + "/" + "0" + novoMEF + "/" + novoAEF;
+                    }
+                    else {
+                        novaDF = "0" + novoDEF + "/" + novoMEF + "/" + novoAEF;
+                    }
+                } else {
+                    if (novoMEF > 0 && novoMEF < 10) {
+                        novaDF = novoDEF + "/" + "0" + novoMEF + "/" + novoAEF;
+                    }
+                    else {
+                        novaDF = novoDEF + "/" + novoMEF + "/" + novoAEF;
+                    }
+                }
+                String novoHF = novaHF + "h" + novoMF;
+                e.setHorarioFim(novoHF);
+                e.setDataFim(novaDF);
+            }
+        }
+
+        for (Lembrete l : listaLembretes) {
+            if (opc == l.getIdL()) {
+                int auxL = 0;
+                System.out.println("* -------------------------------------- *");
+                System.out.println("| - Digite o nome do Lembrete:");
+                sc.nextLine();
+                String nomeL = sc.nextLine();
+
+                int novoDL = Dia(auxL);
+                int novoML = Mes(auxL);
+                if (novoML == 2 && novoDL > 29) {
+                    System.out.println("| * Fevereiro tem apenas 28 ou 29 dias, por favor corrija.");
+                    novoDL = Dia(auxL);
+                    if (novoDL > 29) {
+                        while (novoDL > 29) {
+                            System.out.printf("| * Digite um dia válido. ->");
+                            novoDL = Dia(auxL);
+                        }
+                    }
+                } else if (novoML == 4 || novoML == 6 || novoML == 9 || novoML == 11 && novoDL > 30) {
+                    System.out.println("| * Seu mês tem 30 dias. Por favor corrija.");
+                    novoDL = Dia(auxL);
+                    if (novoDL > 30) {
+                        while (novoDL > 30) {
+                            System.out.printf("| * Digite um dia válido. ->");
+                            novoDL = Dia(auxL);
+                        }
+                    }
+                }
+                int novoAL = Ano(auxL);
+                int novaHL = Hora(auxL);
+                int novoMIL = Minuto(auxL);
+
+                l.setDia(novoDL);
+                l.setMes(novoML);
+                l.setAno(novoAL);
+                l.setHora(novaHL);
+                l.setMinutos(novoMIL);
+
+                String novaDL;
+                if (novoDL > 0 && novoDL < 10) {
+                    if (novoML > 0 && novoML < 10) {
+                        novaDL = "0" + novoDL + "/" + "0" + novoML + "/" + novoAL;
+                    }
+                    else {
+                        novaDL = "0" + novoDL + "/" + novoML + "/" + novoAL;
+                    }
+                } else {
+                    if (novoML > 0 && novoML < 10) {
+                        novaDL = novoDL + "/" + "0" + novoML + "/" + novoAL;
+                    }
+                    else {
+                        novaDL = novoDL + "/" + novoML + "/" + novoAL;
+                    }
+                }
+                String novoHL = novaHL + "h" + novoML;
+                l.setHorario(novoHL);
+                l.setData(novaDL);
+            }
+        }
+
+        for (Tarefa t : listaTarefas) {
+            if (opc == t.getIdT()) {
+                int auxT = 0;
+                System.out.println("* -------------------------------------- *");
+                System.out.println("| - Digite o nome da Tarefa: ");
+                sc.nextLine();
+                String nomeT = sc.nextLine();
+
+                int novoDT = Dia(auxT);
+                int novoMT = Mes(auxT);
+                if (novoMT == 2 && novoDT > 29) {
+                    System.out.println("| * Fevereiro tem apenas 28 ou 29 dias, por favor corrija.");
+                    novoDT = Dia(auxT);
+                    if (novoDT > 29) {
+                        while (novoDT > 29) {
+                            System.out.printf("| * Digite um dia válido. ->");
+                            novoDT = Dia(auxT);
+                        }
+                    }
+                } else if (novoMT == 4 || novoMT == 6 || novoMT == 9 || novoMT == 11 && novoDT > 30) {
+                    System.out.println("| * Seu mês tem 30 dias. Por favor corrija.");
+                    novoDT = Dia(auxT);
+                    if (novoDT > 30) {
+                        while (novoDT > 30) {
+                            System.out.printf("| * Digite um dia válido. ->");
+                            novoDT = Dia(auxT);
+                        }
+                    }
+                }
+                int novoAT = Ano(auxT);
+
+                String novaDT;
+
+                if (novoDT > 0 && novoDT < 10) {
+                    if (novoMT > 0 && novoMT < 10) {
+                        novaDT = "0" + novoDT + "/" + "0" + novoMT + "/" + novoAT;
+                    }
+                    else {
+                        novaDT = "0" + novoDT + "/" + novoMT + "/" + novoAT;
+                    }
+                } else {
+                    if (novoMT > 0 && novoMT < 10) {
+                        novaDT = novoDT + "/" + "0" + novoMT + "/" + novoAT;
+                    }
+                    else {
+                        novaDT = novoDT + "/" + novoMT + "/" + novoAT;
+                    }
+                }
+
+                t.setDia(novoDT);
+                t.setMes(novoMT);
+                t.setAno(novoAT);
+                t.setData(novaDT);
+            }
+        }
     }
 
     public static void excluirEvento() {
         System.out.println("- Excluir evento.");
+        String auxt;
+        int opc;
+
+        System.out.println("| Digite a data (dd/mm/aaaa): ");
+        sc.nextLine();
+        auxt = sc.nextLine().trim();
+        procuraData(auxt);
+
+        System.out.println("| Digite o ID do acontecimento -> ");
+        opc = sc.nextInt();
+
+        for (Evento e : listaEventos) {
+            List<Evento> eventosExcluir = new ArrayList<>();
+            if (opc == e.getIdE()) {
+                eventosExcluir.add(e);
+
+                listaEventos.removeAll(eventosExcluir);
+
+                if (eventosExcluir.isEmpty()) {
+                    System.out.println("| Evento excluído com sucesso!");
+                } else {
+                    System.err.println("Nenhum evento correspondente encontrado para exclusão.");
+                }
+            }
+        }
+
+        for (Lembrete l : listaLembretes) {
+            List<Lembrete> lembretesExcluir = new ArrayList<>();
+            if (opc == l.getIdL()) {
+                lembretesExcluir.add(l);
+
+                listaLembretes.removeAll(lembretesExcluir);
+
+                if (lembretesExcluir.isEmpty()) {
+                    System.out.println("| Lembrete excluído com sucesso!");
+                } else {
+                    System.err.println("Nenhum lembrete encontrado para exclusão.");
+                }
+            }
+        }
+
+        for (Tarefa t : listaTarefas) {
+            List<Tarefa> tarefasExcluir = new ArrayList<>();
+            if (opc == t.getIdT()) {
+                tarefasExcluir.add(t);
+
+                listaTarefas.removeAll(tarefasExcluir);
+
+                if (tarefasExcluir.isEmpty()) {
+                    System.out.println("| Tarefa excluída com sucesso!");
+                } else {
+                    System.err.println("Nenhuma tarefa encontrada para exclusão.");
+                }
+            }
+        }
     }
 }
