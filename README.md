@@ -1,2 +1,2 @@
 # Calendario
-**Projeto do 3° bimestre para LP1 - 2023**
+**Projeto de um calendário com funções de agenda para o 3° bimestre de LP1 - 2023**
