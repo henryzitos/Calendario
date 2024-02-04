@@ -8,7 +8,7 @@
 Programa que simula um sistema de um calendário com funções de uma agenda, como registro de tarefas e eventos. O projeto é um estudo de Programação Orientada a Objetos (POO) com a linguagem Java.
 
 ## Status
-Em desenvolvimento - Desde 09/2023
+Em desenvolvimento - Desde 08/2023
 
 ## Instalação e uso
 1. Baixe o repositório do projeto. 
@@ -18,5 +18,8 @@ Em desenvolvimento - Desde 09/2023
 5. Execute o projeto.
 
 ## Ferramentas usadas
+Essas são as ferramentas usadas para gerenciamento do projeto.
+
 ![IntelliJ](https://img.shields.io/badge/IntelliJ-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
+![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 
